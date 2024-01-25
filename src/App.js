@@ -33,6 +33,7 @@ function Board({ xIsNext, squares, onPlay }) {
 
   return (
     <>
+    <h2 className='name' >TIC TACK TOE</h2>
       <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
@@ -59,6 +60,12 @@ export default function Game() {
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
+  function handleReset() {
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
+  }
+
+
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
@@ -78,20 +85,23 @@ export default function Game() {
     }
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button className='mov-btn' onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
   });
 
   return (
-    <div className="game">
+  <div className="game">
+    <div className="game-board-wrapper">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
-      </div>
+      <button className='reset-btn' onClick={() => handleReset()}>Reset Game</button>
     </div>
+    <div className="game-info">
+      <ol>{moves}</ol>
+    </div>
+  </div>
   );
 }
 
