@@ -1,6 +1,12 @@
 import './App.css';
 import { useState } from 'react';
 
+function Title(){
+  return(
+    <h2 className='name' >TIC TACK TOE</h2>
+  )
+}
+
 function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
@@ -24,16 +30,17 @@ function Board({ xIsNext, squares, onPlay }) {
   }
 
   const winner = calculateWinner(squares);
-  let status;
+  let status; 
   if (winner) {
     status = 'Winner: ' + winner;
+  } else if (squares.every(square => square)) {
+    status = 'Tie';
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
-  }
+  } 
 
   return (
     <>
-    <h2 className='name' >TIC TACK TOE</h2>
       <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
@@ -76,12 +83,13 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
+
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
       description = 'Go to move #' + move;
     } else {
-      description = 'Go to game start';
+      description = 'Go to Game Start';
     }
     return (
       <li key={move}>
@@ -93,6 +101,7 @@ export default function Game() {
   return (
   <div className="game">
     <div className="game-board-wrapper">
+      <Title/>
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
