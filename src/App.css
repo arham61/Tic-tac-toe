@@ -76,6 +76,22 @@ body {
   cursor: pointer
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mov-btn {
+  animation: slideIn 0.5s ease-out; /* Adjust the animation duration and timing function as needed */
+}
+
+
 .reset-btn{
   width:200px;
   height: 50px;
